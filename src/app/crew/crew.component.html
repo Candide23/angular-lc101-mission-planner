@@ -1,24 +1,22 @@
-<h3>Crew</h3>
-<ul>
-  <li *ngFor="let member of crew">
+<div class="displayBox">
+  <h3>Candidates</h3>
+  <ul>
+    <li *ngFor="let member of candidates" (click)="addCrewMember(member)"
+      [class.selected]="isCandidateSelected(member)">
+      {{member.name}}</li>
+  </ul>
+</div>
 
-    <span *ngIf="memberBeingEdited !== member; else elseBlock">
-      <!-- display state of member -->
-      <span (click)="edit(member)" class="editable-text">{{member.name}}</span>
-      <span *ngIf="member.firstMission">
-        - 1st
-      </span>
-      <button (click)="remove(member)">remove</button>
-    </span>
+<hr>
+<div class="displayBox">
+  <h3>Crew
+    <span *ngIf="crew.length===3">Full</span><!-- Add a span tah here to display 'Full' if the crew reach 3-->
+  </h3>
+  <ol>
+    <li *ngFor="let astronaut of crew" (mouseover)="setMemberHovered(astronaut)" (mouseout)="setMemberHovered()">
+      {{astronaut.name}}</li>
+  </ol>
+  <!--- Add an img tag here to display astronaut photos --->
 
-    <ng-template #elseBlock>
-      <!-- edit state of member -->
-      <input #updatedName (keyup.enter)="save(updatedName.value, member)" value="{{member.name}}" />
-      <button (click)="save(updatedName.value, member)">save</button>
-    </ng-template>
-
-  </li>
-</ul>
-<input #name type="text" />
-<label>First mission<input #firstMission type="checkbox" /></label>
-<button (click)="add(name.value, firstMission.checked)">Add</button>
+  <img *ngIf="hoveredCandidate !== undefined" [src]="hoveredCandidate.photo " alt="">
+</div>

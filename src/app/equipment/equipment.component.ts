@@ -30,10 +30,16 @@ equipmentItems: object[] = [
 
    // Code your addItem function here:
    addItem(equipmentItem : object, boolean) {
-    //  if (!this.cargoHold.includes(equipmentObject){
+    
+    for(let i = 0; i < this.cargoHold.length; i++){
+      if(this.cargoHold[i]['name'] === equipmentItem['name']){
+        return;
+      }
+     
+    }
       this.cargoHold.push(equipmentItem);
       this.cargoMass += equipmentItem['mass'];
-    //  }
+  
 
     return this.cargoMass +200 >= this.maximumAllowedMass 
     
@@ -49,6 +55,18 @@ equipmentItems: object[] = [
   clearHold(){
     this.cargoHold = [];
     this.cargoMass = 0;
+  }
+
+  removeItem(equipmentItem: object){
+
+    for(let i = 0; i < this.cargoHold.length; i++){
+      if(this.cargoHold[i]['name'] === equipmentItem['name']){
+        this.cargoHold.splice(i,1);
+        this.cargoMass-=equipmentItem['mass'];
+        return;
+      }
+      
+    }
   }
 
   
